@@ -1,20 +1,145 @@
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kapı Kontrol Paneli</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Firebase SDK v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyA4i5NAHnqVFwuYC-B0WQX8NJe7BA6CmJM",
-    authDomain: "autodoor-c8589.firebaseapp.com",
-    databaseURL: "https://autodoor-c8589-default-rtdb.firebaseio.com",
-    projectId: "autodoor-c8589",
-    storageBucket: "autodoor-c8589.firebasestorage.app",
-    messagingSenderId: "745407822751",
-    appId: "1:745407822751:web:32e90feb0a3d95916bdbaa"
-  };
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
+    h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #03dac6;
+    }
+
+    .group {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .group h3 {
+      margin-top: 0;
+      color: #03dac6;
+      font-size: 1.2rem;
+    }
+
+    .normal-buton {
+      background: linear-gradient(145deg, #1f1f1f, #232323);
+      color: #fff;
+    }
+    .button {
+      border: none;
+      border-radius: 12px;
+      padding: 30px 30px;
+      margin: 5px 0px;
+      font-size: 1.1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+      width: 45%;
+    }
+
+    .button:hover {
+      background-color: #03dac6;
+      color: #0f0;
+    }
+
+    .button:active {
+      transform: scale(0.97);
+    }
+
+    .stop-button {
+      background-color: #d32f2f !important;
+      color: white;
+      width: 100%;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body style="text-align:center; font-family:sans-serif;">
+  <h2>Kapı Kontrol Paneli</h2>
+
+  <div class="group">
+    <h3>Kapı 1</h3>
+    <button class="normal-buton button" onclick="Door1open()">Aç</button>
+    <button class="normal-buton button" onclick="Door1close()">Kapat</button>
+  </div>
+
+  <div class="group">
+    <h3>Kapı 2</h3>
+    <button class="normal-buton button" onclick="Door2open()">Aç</button>
+    <button class="normal-buton button" onclick="Door2close()">Kapat</button>
+  </div>
+
+  <button class="button stop-button" onclick="Stop()">Dur</button>
+
+  <script>
+    // Firebase ayarları
+    const firebaseConfig = {
+      apiKey: "AIzaSyA4i5NAHnqVFwuYC-B0WQX8NJe7BA6CmJM",
+      authDomain: "autodoor-c8589.firebaseapp.com",
+      databaseURL: "https://autodoor-c8589-default-rtdb.firebaseio.com",
+      projectId: "autodoor-c8589",
+      storageBucket: "autodoor-c8589.appspot.com",
+      messagingSenderId: "745407822751",
+      appId: "1:745407822751:web:32e90feb0a3d95916bdbaa"
+    };
+
+    // Firebase başlat
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function Door1open() {
+      db.ref("door1open").set(true);
+      db.ref("door1close").set(false);
+      console.log("Kapı 1 Aç komutu gönderildi");
+    }console.log
+
+    function Door2open() {
+      db.ref("door2open").set(true);
+      db.ref("door2close").set(false);
+      console.log("Kapı 2 Aç komutu gönderildi");
+    }
+
+    function Door1close() {
+      db.ref("door1open").set(false);
+      db.ref("door1close").set(true);
+      console.log("Kapı 1 Kapat komutu gönderildi");
+    }
+
+    function Door2close() {
+      db.ref("door2open").set(false);
+      db.ref("door2close").set(true);
+      console.log("Kapı 2 Kapat komutu gönderildi");
+    }
+     function Stop() {
+      db.ref("door1open").set(false);
+      db.ref("door1close").set(false);
+      db.ref("door2open").set(false);
+      db.ref("door2close").set(false);
+      console.log("Kapılara Dur komutu gönderildi");
+    }
+     </script>
+</body>
+</html>
