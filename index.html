@@ -96,6 +96,21 @@
     <button class="normal-buton button" onclick="Door2close()">Kapat</button>
   </div>
 
+
+  <div class="group" id="lamp1">
+    <h3 id="statusDoor1">Lamba 1</h3>
+    <button class="normal-buton button" onclick="Lamp1open()">Aç</button>
+    <button class="normal-buton button" onclick="Lamp1close()">Kapat</button>
+  </div>
+
+
+    <div class="group" id="lamp2">
+    <h3 id="statusDoor1">Lamba 2</h3>
+    <button class="normal-buton button" onclick="Lamp2open()">Aç</button>
+    <button class="normal-buton button" onclick="Lamp2close()">Kapat</button>
+  </div>
+
+  
   <button class="button stop-button" onclick="Stop()">Dur</button>
 
   <script>
@@ -137,6 +152,28 @@
       db.ref("door2close").set(true);
       console.log("Kapı 2 Kapat komutu gönderildi");
     }
+
+        function Lamp1open() {
+      db.ref("lamp1Statu").set(true);
+      console.log("Kapı 1 Aç komutu gönderildi");
+    }
+
+    function Lamp2open() {
+      db.ref("lamp2Statu").set(true);
+      console.log("Kapı 2 Aç komutu gönderildi");
+    }
+
+    function Lamp1close() {
+      db.ref("lamp1Statu").set(false);
+      console.log("Kapı 1 Kapat komutu gönderildi");
+    }
+
+    function Lamp2close() {
+      db.ref("lamp2Statu").set(false);
+      console.log("Kapı 2 Kapat komutu gönderildi");
+    }
+    
+    
     function Stop() {
       db.ref("door1open").set(false);
       db.ref("door1close").set(false);
